@@ -65,8 +65,7 @@ def account_creation_page():
         if name and password and description and written_response:
             save_account(name, password, description, traits_selected, written_response)
             st.session_state.current_user = name  # Store current user in session state
-            st.success(f"Account created! Welcome, {name}!")
-            st.experimental_rerun()  # Redirect to homepage
+            st.session_state.page = "homepage"  # Change to homepage after creating account
         else:
             st.error("Please fill in all fields.")
 
@@ -80,8 +79,7 @@ def sign_in_page():
         if name and password:
             if check_password(name, password):
                 st.session_state.current_user = name  # Store current user in session state
-                st.success(f"Welcome back, {name}!")
-                st.experimental_rerun()  # Redirect to homepage
+                st.session_state.page = "homepage"  # Change to homepage after signing in
             else:
                 st.error("Incorrect name or password.")
         else:
@@ -108,12 +106,10 @@ def sign_in_or_create_page():
     st.title("Welcome! Please choose an option:")
     
     if st.button("Sign In"):
-        st.session_state.page = "sign_in"
-        st.experimental_rerun()
+        st.session_state.page = "sign_in"  # Switch to sign in page
 
     if st.button("Create a New Account"):
-        st.session_state.page = "create_account"
-        st.experimental_rerun()
+        st.session_state.page = "create_account"  # Switch to account creation page
 
 # Main app flow
 def main():
@@ -129,6 +125,16 @@ def main():
             account_creation_page()
     else:
         homepage()  # Redirect to homepage if already logged in
+
+# Dummy placeholder functions (you should replace with actual logic)
+def explore_page():
+    st.write("This is the explore page.")
+
+def account_settings():
+    st.write("This is the account settings page.")
+
+def help_page():
+    st.write("This is the help page.")
 
 # Run the app
 if __name__ == "__main__":
