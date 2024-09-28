@@ -1,57 +1,65 @@
-import tkinter as tk
-from tkinter import ttk
+import streamlit as st
+import pandas as pd
+import os
 
-# Function to handle form submission
-def create_account():
-    name = name_entry.get()
-    description = description_entry.get("1.0", tk.END).strip()
-    selected_traits = [trait for trait, var in traits_vars.items() if var.get()]
-    written_response = response_entry.get("1.0", tk.END).strip()
-    
-    # Print the form data to the console (or process it further)
-    print(f"Name: {name}")
-    print(f"Description: {description}")
-    print(f"Selected Traits: {', '.join(selected_traits)}")
-    print(f"Written Response: {written_response}")
-    
-    # You could also perform form validation or store this information in a database, etc.
-    tk.messagebox.showinfo("Account Created", "Your account has been created successfully!")
+# Path to save account information
+DATA_FILE = 'accounts.csv'
 
-# Initialize main window
-root = tk.Tk()
-root.title("Account Creation")
-root.geometry("400x500")
+# Function to load existing accounts from the CSV file
+def load_accounts():
+    if os.path.exists(DATA_FILE):
+        return pd.read_csv(DATA_FILE)
+    else:
+        return pd.DataFrame(columns=["Name", "Description", "Traits", "Written Response"])
 
-# Name label and entry
-tk.Label(root, text="Name").pack(pady=5)
-name_entry = tk.Entry(root)
-name_entry.pack(pady=5)
+# Function to save account information
+def save_account(name, description, traits, written_response):
+    new_account = {
+        "Name": name,
+        "Description": description,
+        "Traits": ', '.join(traits),
+        "Written Response": written_response
+    }
+    accounts = load_accounts()
+    accounts = accounts.append(new_account, ignore_index=True)
+    accounts.to_csv(DATA_FILE, index=False)
 
-# Description label and text area
-tk.Label(root, text="Description").pack(pady=5)
-description_entry = tk.Text(root, height=4, width=40)
-description_entry.pack(pady=5)
+# Streamlit UI
+st.title("Account Creation Page")
 
-# Traits label and checkboxes
-tk.Label(root, text="Select Traits").pack(pady=5)
-traits_frame = tk.Frame(root)
-traits_frame.pack(pady=5)
+# Name input
+name = st.text_input("Name")
 
-traits = ["Adventurous", "Creative", "Empathetic", "Logical", "Curious"]
-traits_vars = {trait: tk.BooleanVar() for trait in traits}
+# Description input
+description = st.text_area("Description")
 
-for trait in traits:
-    checkbox = tk.Checkbutton(traits_frame, text=trait, variable=traits_vars[trait])
-    checkbox.pack(anchor="w")
+# Traits input (checkboxes)
+st.write("Select your traits:")
+traits = []
+if st.checkbox("Adventurous"):
+    traits.append("Adventurous")
+if st.checkbox("Creative"):
+    traits.append("Creative")
+if st.checkbox("Empathetic"):
+    traits.append("Empathetic")
+if st.checkbox("Logical"):
+    traits.append("Logical")
+if st.checkbox("Curious"):
+    traits.append("Curious")
 
-# Written response label and text area
-tk.Label(root, text="Written Response").pack(pady=5)
-response_entry = tk.Text(root, height=4, width=40)
-response_entry.pack(pady=5)
+# Written response input
+written_response = st.text_area("Written Response")
 
 # Submit button
-submit_button = ttk.Button(root, text="Create Account", command=create_account)
-submit_button.pack(pady=20)
+if st.button("Create Account"):
+    if name and description and written_response:
+        # Save account data
+        save_account(name, description, traits, written_response)
+        st.success(f"Account created successfully for {name}!")
+    else:
+        st.error("Please fill in all required fields.")
 
-# Run the application
-root.mainloop()
+# Show saved accounts
+st.subheader("Saved Accounts")
+accounts_df = load_accounts()
+st.dataframe(accounts_df)
