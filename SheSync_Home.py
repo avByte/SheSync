@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import os
 import hashlib
-from SheSync_Discovery import main
+from SheSync_Discovery import discovery
 
 # Paths to save account and project information
 DATA_FILE = 'accounts_with_passwords.csv'
@@ -55,7 +55,7 @@ def homepage():
     tab1, tab2, tab3, tab4 = st.tabs(["Discovery", "Explore", "Account Settings", "Help"])
 
     with tab1:
-        discovery_page()
+        discovery()
 
     with tab2:
         explore_projects_page()

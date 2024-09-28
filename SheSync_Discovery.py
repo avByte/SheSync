@@ -49,7 +49,7 @@ def display_account_previews():
                 st.experimental_rerun()  # Rerun the app to display the selected account page
 
 # Main function to handle navigation
-def main():
+def discovery():
     # Load the accounts
     accounts = load_accounts()
 
@@ -66,4 +66,4 @@ def main():
 
 # Run the app
 if __name__ == "__main__":
-    main()
+    discovery()
