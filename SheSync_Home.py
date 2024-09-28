@@ -58,7 +58,7 @@ def homepage():
         discovery()
 
     with tab2:
-        st.write(Not implemented yet)
+        st.write("Not implemented yet")
 
     with tab3:
         account_settings()
