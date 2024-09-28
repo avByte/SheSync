@@ -120,7 +120,7 @@ def account_creation_or_sign_in():
             save_account(name, description, traits_selected, written_response)
             st.session_state.current_user = name  # Store current user in session state
             st.success(f"Welcome, {name}!")
-            st.experimental_rerun()  # Redirect to homepage after sign-in/account creation
+            st.experimental_rerun()  # Redirect to homepage
         else:
             st.error("Please fill in all fields.")
 
@@ -142,11 +142,10 @@ def homepage():
 
 # Main app flow
 def main():
-    # Check if the user is already signed in or has created an account
     if "current_user" not in st.session_state:
-        account_creation_or_sign_in()  # Redirect to account creation/sign-in if not logged in
+        account_creation_or_sign_in()  # User must sign in or create an account
     else:
-        homepage()  # Redirect to homepage if already logged in
+        homepage()  # Display homepage after sign-in/account creation
 
 if __name__ == "__main__":
     main()
