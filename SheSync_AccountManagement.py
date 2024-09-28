@@ -33,7 +33,8 @@ def save_account(name, password, description, traits, written_response):
     if name in accounts['Name'].values:
         accounts.loc[accounts['Name'] == name, ['Password', 'Description', 'Traits', 'Written Response']] = hashed_password, description, ', '.join(traits), written_response
     else:
-        accounts = accounts.append(new_account, ignore_index=True)
+        # Use pd.concat to add new account
+        accounts = pd.concat([accounts, pd.DataFrame([new_account])], ignore_index=True)
     
     accounts.to_csv(DATA_FILE, index=False)
 
