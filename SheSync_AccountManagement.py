@@ -89,20 +89,8 @@ def sign_in_page():
             st.error("Please fill in both fields.")
 
 # Function to display the home page after sign-in or account creation
-def homepage():
-    st.title(f"Welcome, {st.session_state.current_user}")
-
-    # Tabs for navigation
-    tab1, tab2, tab3 = st.tabs(["Explore", "Account Settings", "Help"])
-
-    with tab1:
-        explore_page()
-
-    with tab2:
-        account_settings()
-
-    with tab3:
-        help_page()
+def home():
+    homepage()
 
 # Function for the account creation or sign-in decision page
 def sign_in_or_create_page():

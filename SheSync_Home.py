@@ -99,21 +99,6 @@ def help_page():
     st.title("Help")
     st.write("For any inquiries, please contact us at support@example.com.")
 
-# Main app flow
-def main():
-    if "page" not in st.session_state:
-        st.session_state.page = "choose"
-
-    if "current_user" not in st.session_state:
-        if st.session_state.page == "choose":
-            sign_in_or_create_page()
-        elif st.session_state.page == "sign_in":
-            sign_in_page()
-        elif st.session_state.page == "create_account":
-            account_creation_page()
-    else:
-        homepage()  # Redirect to homepage if already logged in
-
 # Run the app
 if __name__ == "__main__":
     main()
