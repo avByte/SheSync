@@ -47,7 +47,7 @@ def check_password(name, password):
         return stored_password_hash == hash_password(password)
     return False
 
-# Function to display the home page after sign-in or account creation
+# Function to display the home page
 def homepage():
     st.title(f"Welcome, {st.session_state.current_user}")
 
@@ -98,3 +98,7 @@ def account_settings():
 def help_page():
     st.title("Help")
     st.write("For any inquiries or technical support, please contact the LowKey team at #####@####.ca")
+
+# Run the app
+if __name__ == "__main__":
+    homepage()
