@@ -58,8 +58,3 @@ if st.button("Create Account"):
         st.success(f"Account created successfully for {name}!")
     else:
         st.error("Please fill in all required fields.")
-
-# Show saved accounts
-st.subheader("Saved Accounts")
-accounts_df = load_accounts()
-st.dataframe(accounts_df)
