@@ -58,7 +58,7 @@ def homepage():
         discovery()
 
     with tab2:
-        explore_projects_page()
+        st.write(Not implemented yet)
 
     with tab3:
         account_settings()
@@ -97,8 +97,4 @@ def account_settings():
 # Function to display help information
 def help_page():
     st.title("Help")
-    st.write("For any inquiries, please contact us at support@example.com.")
-
-# Run the app
-if __name__ == "__main__":
-    main()
+    st.write("For any inquiries or technical support, please contact the LowKey team at #####@####.ca")
