@@ -4,7 +4,6 @@ import pandas as pd
 import os
 import hashlib
 from SheSync_Discovery import main
-from SheSync_ProjectManagement import 
 
 # Paths to save account and project information
 DATA_FILE = 'accounts_with_passwords.csv'
