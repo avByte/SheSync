@@ -1,7 +1,9 @@
+#Imports
 import streamlit as st
 import pandas as pd
 import os
 import hashlib
+from SheSync_Home import homepage
 
 # Path to save account information
 DATA_FILE = 'accounts_with_passwords.csv'
@@ -126,16 +128,6 @@ def main():
             account_creation_page()
     else:
         homepage()  # Redirect to homepage if already logged in
-
-# Dummy placeholder functions (you should replace with actual logic)
-def explore_page():
-    st.write("This is the explore page.")
-
-def account_settings():
-    st.write("This is the account settings page.")
-
-def help_page():
-    st.write("This is the help page.")
 
 # Run the app
 if __name__ == "__main__":
