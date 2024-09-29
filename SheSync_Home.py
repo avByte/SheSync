@@ -105,7 +105,7 @@ def account_settings():
                     languages_selected.append(language)
 
         if st.button("Save Changes"):
-            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, user_data["Interests"], languages_selected, user_data["Languages"], tags)
+            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, user_data["Interests"], languages_selected, user_data["Languages"])
             st.success("Account updated successfully!")
     else:
         st.write("User not found.")
