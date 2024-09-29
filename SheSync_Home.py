@@ -19,7 +19,7 @@ def load_accounts():
     if os.path.exists(DATA_FILE):
         return pd.read_csv(DATA_FILE)
     else:
-        return pd.DataFrame(columns=["Name", "Password", "Description", "Interests", "Languages", "Tags"])
+        return pd.DataFrame(columns=["Name", "Password", "Bio", "Interests", "Languages", "Tags"])
 
 # Function to save account information (with hashed password)
 def save_account(name, password, description, interests, languages, tags):
@@ -75,9 +75,11 @@ def account_settings():
     
     if st.session_state.current_user in accounts['Name'].values:
         user_data = accounts[accounts['Name'] == st.session_state.current_user].iloc[0]
-        description = st.text_area("Description", user_data["Description"])
+        description = st.text_area("Bio", user_data["Bio"])
         interests = user_data["Interests"].split(", ") if user_data["Interests"] else []
-        
+        languages = user_data["Languages"].split(", ") if user_data["Languages"] else []
+        tags = user_data["Tags"].split(", ") if user_data["Tags"] else []
+
         st.write("Select your Interests:")
         interests_list = ["Web Development", "Data Science", "DevOps", "Mobile Developent", "Cybersecurity", "Game Development", "Hackathons", "Internships", "Conferences", "Workshops", "Competitions", "Full-Time Opportunities", "Networking"]
         interests_selected = []
@@ -90,8 +92,20 @@ def account_settings():
                 if st.checkbox(interest):
                     interests_selected.append(interest)
         
+        st.write("Select your languages:")
+        languages_list = ["Bash/Shell", "C/C++","C#", "Go" "HTML/CSS", "JavaScript", "Java", "PHP", "Python", "PowerShell", "Rust", "SQL", "TypeScript"]
+        languages_selected = []
+
+        for language in languages_list:
+            if language in languages:
+                if st.checkbox(language, value=True):
+                    languages_selected.append(language)
+            else:
+                if st.checkbox(language):
+                    languages_selected.append(language)
+
         if st.button("Save Changes"):
-            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, user_data["Traits"])
+            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, user_data["Interests"], languages_selected, user_data["Languages"], tags)
             st.success("Account updated successfully!")
     else:
         st.write("User not found.")
