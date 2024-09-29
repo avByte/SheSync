@@ -17,23 +17,24 @@ def load_accounts():
     if os.path.exists(DATA_FILE):
         return pd.read_csv(DATA_FILE)
     else:
-        return pd.DataFrame(columns=["Name", "Password", "Description", "Traits", "Written Response"])
+        return pd.DataFrame(columns=["Name", "Password", "Description", "Interests", "Languages", "Tags"])
 
 # Function to save account information (with hashed password)
-def save_account(name, password, description, traits, written_response):
+def save_account(name, password, description, interests, languages, tags):
     hashed_password = hash_password(password)
     new_account = {
         "Name": name,
         "Password": hashed_password,
-        "Description": description,
-        "Traits": ', '.join(traits),
-        "Written Response": written_response
+        "Bio": description,
+        "Interests": ', '.join(interests),
+        "Languages": ', '.join(languages),
+        "Tags": ', '.join(tags)
     }
     accounts = load_accounts()
     
     # If the account already exists (same name), update it
     if name in accounts['Name'].values:
-        accounts.loc[accounts['Name'] == name, ['Password', 'Description', 'Traits', 'Written Response']] = hashed_password, description, ', '.join(traits), written_response
+        accounts.loc[accounts['Name'] == name, ['Password', 'Bio', 'Interests', 'Languages', 'Tags']] = hashed_password, description, ', '.join(interests), ', '.join(languages), ', '.join(tags)
     else:
         # Use pd.concat to add new account
         accounts = pd.concat([accounts, pd.DataFrame([new_account])], ignore_index=True)
@@ -53,20 +54,30 @@ def account_creation_page():
     st.title("Create an Account")
     name = st.text_input("Name")
     password = st.text_input("Password", type="password")
-    description = st.text_area("Description")
-    written_response = st.text_area("Written Response")
+    description = st.text_area("Bio")
 
-    st.write("Select your traits:")
-    traits_list = ["Adventurous", "Creative", "Empathetic", "Logical", "Curious"]
-    traits_selected = []
+    st.write("Select your interests:")
+    interests_list = ["Web Development", "Data Science", "DevOps", "Mobile Developent", "Cybersecurity", "Game Development", "Hackathons", "Internships", "Conferences", "Workshops", "Competitions", "Full-Time Opportunities", "Networking"]
+    interests_selected = []
     
-    for trait in traits_list:
-        if st.checkbox(trait):
-            traits_selected.append(trait)
+    for interest in interests_list:
+        if st.checkbox(interest):
+            interests_selected.append(interest)
+
+    st.write("Select your languages:")
+    languages_list = ["Bash/Shell", "C/C++","C#", "Go" "HTML/CSS", "JavaScript", "Java", "PHP", "Python", "PowerShell", "Rust", "SQL", "TypeScript"]
+    languages_selected = []
+    
+    for language in languages_list:
+        if st.checkbox(language):
+            languages_selected.append(language)
+
+    tags_list = ["Tech Enthusiast", "Gamer", "Traveler", "Fitness Lover", "Foodie", "Entrepreneur", "Music Lover", "Artistic", "Movies/Shows", "Podcasts"]
+    selected_tags = st.multiselect("Select your tags", options=tags_list)
 
     if st.button("Create Account"):
-        if name and password and description and written_response:
-            save_account(name, password, description, traits_selected, written_response)
+        if name and password and description:
+            save_account(name, password, description, interests_selected, languages_selected, selected_tags)
             st.session_state.current_user = name  # Store current user in session state
             st.session_state.page = "homepage"  # Change to homepage after creating account
         else:
