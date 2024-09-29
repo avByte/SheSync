@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import hashlib
 from SheSync_Discovery import discovery
+from SheSync_ProjectManagement import project_page
 
 # Paths to save account and project information
 DATA_FILE = 'accounts_with_passwords.csv'
@@ -58,7 +59,7 @@ def homepage():
         discovery()
 
     with tab2:
-        st.write("Not implemented yet")
+        project_page()
 
     with tab3:
         account_settings()
