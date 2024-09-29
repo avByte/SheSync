@@ -93,7 +93,7 @@ def account_settings():
                     interests_selected.append(interest)
         
         st.write("Select your languages:")
-        languages_list = ["Bash/Shell", "C/C++","C#", "Go" "HTML/CSS", "JavaScript", "Java", "PHP", "Python", "PowerShell", "Rust", "SQL", "TypeScript"]
+        languages_list = ["Bash/Shell", "C/C++","C#", "Go", "HTML/CSS", "JavaScript", "Java", "PHP", "Python", "PowerShell", "Rust", "SQL", "TypeScript"]
         languages_selected = []
 
         for language in languages_list:
@@ -104,8 +104,13 @@ def account_settings():
                 if st.checkbox(language):
                     languages_selected.append(language)
 
+        st.write("Select your Tags:")
+        tags_list = ["Tech Enthusiast", "Gamer", "Traveler", "Fitness Lover", "Foodie", "Entrepreneur", "Music Lover", "Artistic", "Movies/Shows", "Podcasts"]
+        tags_selected = st.multiselect("Choose your tags:", options=tags_list, default=tags)
+
+
         if st.button("Save Changes"):
-            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, user_data["Interests"], languages_selected, user_data["Languages"])
+            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, languages_selected, tags_selected)
             st.success("Account updated successfully!")
     else:
         st.write("User not found.")

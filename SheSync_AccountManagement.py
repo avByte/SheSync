@@ -65,7 +65,7 @@ def account_creation_page():
             interests_selected.append(interest)
 
     st.write("Select your languages:")
-    languages_list = ["Bash/Shell", "C/C++","C#", "Go" "HTML/CSS", "JavaScript", "Java", "PHP", "Python", "PowerShell", "Rust", "SQL", "TypeScript"]
+    languages_list = ["Bash/Shell", "C/C++","C#", "Go", "HTML/CSS", "JavaScript", "Java", "PHP", "Python", "PowerShell", "Rust", "SQL", "TypeScript"]
     languages_selected = []
     
     for language in languages_list:
