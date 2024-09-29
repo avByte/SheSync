@@ -94,7 +94,7 @@ def home():
 
 # Function for the account creation or sign-in decision page
 def sign_in_or_create_page():
-    st.title("Welcome! Please choose an option:")
+    st.title("Hey! Please choose an option:")
     
     if st.button("Sign In"):
         st.session_state.page = "sign_in"  # Switch to sign in page
