@@ -81,7 +81,7 @@ def load_accounts():
         accounts = pd.read_csv(ACCOUNTS_FILE)
         return accounts
     else:
-        return pd.DataFrame(columns=["Name", "Description", "Traits"])
+        return pd.DataFrame(columns=["Name", "Bio", "Interests", "Languages", "Tags"])
 
 # Function to display user previews
 def display_user_previews():
@@ -95,12 +95,21 @@ def display_user_previews():
     # Display each user in a carousel-style layout
     for index, row in accounts.iterrows():
         st.subheader(row["Name"])
-        st.write(f"**Description:** {row['Description']}")
+        st.write(f"**Bio:** {row['Bio']}")
         
-        # Display traits if available
-        if pd.notna(row["Traits"]):
-            st.write(f"**Traits:** {row['Traits']}")
+        # Display interests if available
+        if pd.notna(row["Interests"]):
+            st.write(f"**Interests:** {row['Interests']}")
         
+        # Display languages if available
+        if pd.notna(row["Languages"]):
+            st.write(f"**Languages:** {row['Languages']}")
+        
+        # Display tags if available
+        if pd.notna(row["Tags"]):
+            st.write(f"**Tags:** {row['Tags']}")
+        
+
         st.write("---")  # Separator between user previews
 
 # Main function to display the user carousel
