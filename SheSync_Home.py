@@ -54,7 +54,7 @@ def homepage():
     st.title(f"Hey hi, {st.session_state.current_user}!")
 
     # Tabs for navigation
-    tab1, tab2, tab3, tab4 = st.tabs(["Discovery", "Explore", "Account Settings", "Help"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Discovery", "Explore", "Account Settings", "About Us"])
 
     with tab1:
         discovery()
