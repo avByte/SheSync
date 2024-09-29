@@ -117,7 +117,10 @@ def account_settings():
 
 # Function to display help information
 def help_page():
-    st.title("Help")
+    st.title("About Us")
+    st.subheader("Our Mission")
+    st.write("With women constantly being overlooked and neglected in tech, we bring you SheSync to connect women with women, to make working in tech feel a little less isolating.")
+    st.write("")
     st.write("For any inquiries or technical support, please contact the LowKey team at #####@####.ca")
 
 # Run the app
