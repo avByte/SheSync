@@ -29,7 +29,7 @@ def save_account(name, password, description, interests, languages, tags):
         "Password": hashed_password,
         "Bio": description,
         "Interests": ', '.join(interests),
-        "Languages": ', 'join(languages),
+        "Languages": ', '.join(languages),
         "Tags": tags
     }
     accounts = load_accounts()
