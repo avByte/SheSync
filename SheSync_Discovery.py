@@ -114,9 +114,9 @@ def display_user_previews():
 
 # Main function to display the user carousel
 def discovery():
-    st.title("User Carousel")
+    st.title("Users")
 
-    st.write("Scroll to view user accounts.")
+    st.write("Scroll to find your next teammate!")
     display_user_previews()
 
 if __name__ == "__main__":

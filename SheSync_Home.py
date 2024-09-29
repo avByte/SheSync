@@ -51,7 +51,7 @@ def check_password(name, password):
 
 # Function to display the home page
 def homepage():
-    st.title(f"Hello, {st.session_state.current_user}!")
+    st.title(f"Hey hi, {st.session_state.current_user}!")
 
     # Tabs for navigation
     tab1, tab2, tab3, tab4 = st.tabs(["Discovery", "Explore", "Account Settings", "Help"])
