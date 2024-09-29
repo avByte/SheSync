@@ -19,22 +19,23 @@ def load_accounts():
     if os.path.exists(DATA_FILE):
         return pd.read_csv(DATA_FILE)
     else:
-        return pd.DataFrame(columns=["Name", "Password", "Description", "Traits", "Written Response"])
+        return pd.DataFrame(columns=["Name", "Password", "Description", "Interests", "Languages", "Tags"])
 
 # Function to save account information (with hashed password)
-def save_account(name, password, description, traits, written_response):
+def save_account(name, password, description, interests, languages, tags):
     hashed_password = hash_password(password)
     new_account = {
         "Name": name,
         "Password": hashed_password,
-        "Description": description,
-        "Traits": ', '.join(traits),
-        "Written Response": written_response
+        "Bio": description,
+        "Interests": ', '.join(interests),
+        "Languages": ', 'join(languages),
+        "Tags": tags
     }
     accounts = load_accounts()
     
     if name in accounts['Name'].values:
-        accounts.loc[accounts['Name'] == name, ['Password', 'Description', 'Traits', 'Written Response']] = hashed_password, description, ', '.join(traits), written_response
+        accounts.loc[accounts['Name'] == name, ['Password', 'Bio', 'Interests', 'Languages', 'Tags']] = hashed_password, description, ', '.join(interests), ', '.join(languages), tags
     else:
         accounts = pd.concat([accounts, pd.DataFrame([new_account])], ignore_index=True)
     
@@ -75,22 +76,22 @@ def account_settings():
     if st.session_state.current_user in accounts['Name'].values:
         user_data = accounts[accounts['Name'] == st.session_state.current_user].iloc[0]
         description = st.text_area("Description", user_data["Description"])
-        traits = user_data["Traits"].split(", ") if user_data["Traits"] else []
+        interests = user_data["Interests"].split(", ") if user_data["Interests"] else []
         
-        st.write("Select your traits:")
-        traits_list = ["Adventurous", "Creative", "Empathetic", "Logical", "Curious"]
-        traits_selected = []
+        st.write("Select your Interests:")
+        interests_list = ["Web Development", "Data Science", "DevOps", "Mobile Developent", "Cybersecurity", "Game Development", "Hackathons", "Internships", "Conferences", "Workshops", "Competitions", "Full-Time Opportunities", "Networking"]
+        interests_selected = []
         
-        for trait in traits_list:
-            if trait in traits:
-                if st.checkbox(trait, value=True):
-                    traits_selected.append(trait)
+        for interest in interests_list:
+            if interest in interests:
+                if st.checkbox(interest, value=True):
+                    interests_selected.append(interest)
             else:
-                if st.checkbox(trait):
-                    traits_selected.append(trait)
+                if st.checkbox(interest):
+                    interests_selected.append(interest)
         
         if st.button("Save Changes"):
-            save_account(st.session_state.current_user, user_data["Password"], description, traits_selected, user_data["Written Response"])
+            save_account(st.session_state.current_user, user_data["Password"], description, interests_selected, user_data["Traits"])
             st.success("Account updated successfully!")
     else:
         st.write("User not found.")
