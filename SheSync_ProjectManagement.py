@@ -77,7 +77,7 @@ def display_project_previews():
 
 # Main function to manage the project page
 def project_page():
-    st.title("Project Management")
+    st.title("Projects")
 
     # Button to show the project creation form
     if st.button("Create New Project"):
@@ -90,7 +90,7 @@ def project_page():
     # Scrollable project previews
     with st.container():
         st.subheader("Projects")
-        st.write("Scroll down to view project previews.")
+        st.write("Scroll down to view other user's projects!")
         display_project_previews()
 
 # Initialize session state and display the project page
